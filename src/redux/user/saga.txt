@@ -1,0 +1,34 @@
+import axios from "axios";
+import { all, call, put, takeLatest } from "redux-saga/effects";
+import { IPost } from "../../../models/IPost"; 
+import {
+  fetchUserDetailFailure,
+  fetchUserDetailSuccess
+} from "../../actions/postsActions/postsActions";
+import { userTypes } from "../types/actionTypes.ts";
+
+const getUserDetail = () =>
+  axios.get<IPost[]>("https://jsonplaceholder.typicode.com/todos"); // some call for detail
+
+function* fetchUserDetailSaga() {
+  try {
+    const response = yield call(getUserDetail);
+    yield put(
+      fetchUserDetailSuccess({
+        posts: response.data
+      })
+    );
+  } catch (e) {
+    yield put(
+      fetchUserDetailFailure({
+        error: e.message
+      })
+    );
+  }
+}
+
+function* postsSaga() {
+  yield all([takeLatest(postTypes.FETCH_USER_DETAIL_REQUEST, fetchUserDetailSaga)]);
+}
+
+export default postsSaga;

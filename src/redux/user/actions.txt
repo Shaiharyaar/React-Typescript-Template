@@ -1,0 +1,26 @@
+import { postTypes } from "../../Actiontypes/UserDetailTypes";
+import {
+  FetchUserDetailFailure,
+  FetchUserDetailFailurePayload,
+  FetchUserDetailRequest,
+  FetchUserDetailSuccess,
+  FetchUserDetailSuccessPayload
+} from "../../types/types";
+
+export const fetchUserDetailRequest = (): FetchUserDetailRequest => ({
+  type: postTypes.FETCH_USER_DETAIL_REQUEST
+});
+
+export const fetchUserDetailSuccess = (
+  payload: FetchUserDetailSuccessPayload
+): FetchUserDetailSuccess => ({
+  type: postTypes.FETCH_USER_DETAIL_SUCCESS,
+  payload
+});
+
+export const fetchUserDetailFailure = (
+  payload: FetchUserDetailFailurePayload
+): FetchUserDetailFailure => ({
+  type: postTypes.FETCH_USER_DETAIL_FAILURE,
+  payload
+});

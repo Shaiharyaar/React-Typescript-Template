@@ -1,0 +1,36 @@
+import { userTypes } from "../types/actionTypes.ts";
+import { UserActions, UserState } from "./actions";
+
+const initialState: UserState = {
+  pending: false,
+  detail: {},
+  error: null
+};
+
+export default (state = initialState, action: UserActions) => {
+  switch (action.type) {
+    case userTypes.FETCH_USER_DETAIL_REQUEST:
+      return {
+        ...state,
+        pending: true
+      };
+    case userTypes.FETCH_USER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        detail: action.payload.detail,
+        error: null
+      };
+    case userTypes.FETCH_USER_DETAIL_FAILURE:
+      return {
+        ...state,
+        pending: false,
+        detail: [],
+        error: action.payload.error
+      };
+    default:
+      return {
+        ...state
+      };
+  }
+};
